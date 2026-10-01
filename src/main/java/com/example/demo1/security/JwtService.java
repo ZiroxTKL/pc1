@@ -16,12 +16,12 @@ import java.util.Date;
 public class JwtService {
 
     @Value("${jwt.secret}")
-    private String secret;
+    private static String secret;
 
     @Value("${jwt.expiration-access}")
     private Long accessTokenExpiration;
 
-    private Key getSigningKey() {
+    private static Key getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
@@ -38,7 +38,7 @@ public class JwtService {
                 .compact();
     }
 
-    public boolean isTokenValid(String token) {
+    public static boolean isTokenValid(String token) {
         try {
             Jwts.parser()
                     .verifyWith((SecretKey) getSigningKey())
@@ -52,7 +52,7 @@ public class JwtService {
         }
     }
 
-    public String extractUsername(String token) {
+    public static String extractUsername(String token) {
         return Jwts.parser()
                 .verifyWith((SecretKey) getSigningKey())
                 .build()

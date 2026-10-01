@@ -19,7 +19,7 @@ public class Account implements UserDetails {
     private Long id;
 
     // ...
-
+    private String email;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         /* Mapea los roles del usuario a GrantedAuthority.
@@ -31,7 +31,8 @@ public class Account implements UserDetails {
                 .collect(Collectors.toList());
     }
 
-    public String getPassword() { return password; }
+    public String getPassword() {
+        return password; }
 
     @Override
     public String getUsername() { return this.email; }

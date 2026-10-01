@@ -8,4 +8,8 @@ import org.springframework.data.web.PageableDefault;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    User findByEmailAndPassword(String email, String password);
+    User findById(long id);
+    User findByEmail(String email, @PageableDefault Pageable pageable);
+    User findByUsername(String username, @PageableDefault Pageable pageable);
 }

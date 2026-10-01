@@ -1,5 +1,6 @@
 package com.example.demo1.security;
 
+import com.example.demo1.service.AccountService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +13,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import com.example.demo1.security.JwtService;
 
 import java.io.IOException;
 
@@ -35,6 +38,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 if (StringUtils.hasText(username)
                         && SecurityContextHolder.getContext().getAuthentication() == null) {
 
+                    AccountService userDetailsService = null;
                     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                     SecurityContext context = SecurityContextHolder.createEmptyContext();
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
